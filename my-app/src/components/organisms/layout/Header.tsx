@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, Heading, Link, useDisclosure } from "@chakra-ui/react";
+import { Box, Divider, Flex, Heading, Link, Tooltip, useDisclosure } from "@chakra-ui/react";
 import { memo, useCallback, VFC } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "../../../hooks/useLogout";
@@ -14,7 +14,7 @@ export const Header: VFC = memo(() => {
 
     const onClickHome = useCallback(() => navigate("/home"), []);
     const onClickUserManagement = useCallback(() => navigate("/home/user_management"), []);
-    const onClickSetting = useCallback(() => navigate("/home/setting"), []);
+    const onClickTodo = useCallback(() => navigate("/home/Todo"), []);
 
     const { logout } = useLogout();
     const onClickLogOut = useCallback(() => logout(), []);
@@ -29,7 +29,9 @@ export const Header: VFC = memo(() => {
                     <Box pr={4}>
                         <Link onClick={onClickUserManagement}>ユーザー一覧</Link>
                     </Box>
-                    <Link onClick={onClickSetting}>設定</Link>
+                    <Tooltip label="ALL User's" bg="gray.300" color="black" aria-label='A tooltip'>
+                    <Link onClick={onClickTodo}>TODO</Link>
+                    </Tooltip>
                 </Flex>
                 <Divider
                     h={14}
@@ -49,7 +51,7 @@ export const Header: VFC = memo(() => {
                 isOpen={isOpen}
                 onClickHome={onClickHome}
                 onClickUserManagement={onClickUserManagement}
-                onClickSetting={onClickSetting}
+                onClickSetting={onClickTodo}
                 onClickLogout={onClickLogOut}
                  />
         </>

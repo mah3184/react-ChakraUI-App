@@ -11,6 +11,7 @@ export const useLogout = () => {
 
     const logout = useCallback(() => {
         setCookie("lsid","NO")
+        removeCookie("lsid")
         showMessage({ title: "ログアウトしました", status: "success" });
         navigate("/");
     },[])

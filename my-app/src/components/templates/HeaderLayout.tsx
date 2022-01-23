@@ -8,6 +8,7 @@ type Props = {
 
 export const HeaderLayout: VFC<Props> = memo((props) => {
     const { children } = props;
+
     return (
         <>
         <Redirector />
