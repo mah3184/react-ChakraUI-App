@@ -1,7 +1,10 @@
-import { Box, Flex, Heading, Link, useDisclosure } from "@chakra-ui/react";
+import { Box, Divider, Flex, Heading, Link, useDisclosure } from "@chakra-ui/react";
 import { memo, useCallback, VFC } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLogout } from "../../../hooks/useLogout";
 import { MenuIconButton } from "../../atoms/button/MenuIconButton";
+import { MiniButton } from "../../atoms/button/MiniButton";
+import { LogoutButton } from "../../molecules/LogoutButton";
 import { MenuDrawer } from "../../molecules/MenuDrawer";
 
 export const Header: VFC = memo(() => {
@@ -12,6 +15,9 @@ export const Header: VFC = memo(() => {
     const onClickHome = useCallback(() => navigate("/home"), []);
     const onClickUserManagement = useCallback(() => navigate("/home/user_management"), []);
     const onClickSetting = useCallback(() => navigate("/home/setting"), []);
+
+    const { logout } = useLogout();
+    const onClickLogOut = useCallback(() => logout(), []);
 
     return (
         <>
@@ -25,14 +31,27 @@ export const Header: VFC = memo(() => {
                     </Box>
                     <Link onClick={onClickSetting}>設定</Link>
                 </Flex>
+                <Divider
+                    h={14}
+                    orientation="vertical"
+                    borderColor="ffffff"
+                    opacity="1"
+                    mr={14}
+                    display={{ base: "none", md: "flex" }}
+                />
+                <Flex mr={20} align="center">
+                <LogoutButton />
                 <MenuIconButton onOpen={onOpen} />
+                </Flex>
             </Flex>
             <MenuDrawer
                 onClose={onClose}
                 isOpen={isOpen}
                 onClickHome={onClickHome}
                 onClickUserManagement={onClickUserManagement}
-                onClickSetting={onClickSetting} />
+                onClickSetting={onClickSetting}
+                onClickLogout={onClickLogOut}
+                 />
         </>
     )
 })
