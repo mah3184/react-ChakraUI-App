@@ -14,6 +14,7 @@ export const MediumBox: VFC<Props> = memo((props) => {
   return (
     <Box
       p={4}
+      height='50px'
       shadow='md'
       borderWidth='1px'
       flex='1'
@@ -23,7 +24,9 @@ export const MediumBox: VFC<Props> = memo((props) => {
     >
       <Heading fontSize='xl'>{title}</Heading>
       <Text as="sub" mt={4} >{element}</Text>
+      <Box style={{ overflowY: 'scroll', maxHeight: '650px' }}>
       {children}
+      </Box>
     </Box>
 
   )
