@@ -5,12 +5,12 @@ import { Navigate } from "react-router-dom";
 
 export const Redirector = memo(() => {
     // 認証cookie
-    const [cookies, setCookie, removeCookie] = useCookies(["lsid"]);
+    const [cookies] = useCookies(["lsid"]);
     console.log(`redirector:${cookies.lsid}`)
 
     return (
         <>
-        {cookies.lsid != "YES" &&
+        {cookies.lsid !== "YES" &&
         (
         <Navigate to="/" />
         )

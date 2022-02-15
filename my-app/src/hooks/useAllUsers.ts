@@ -1,7 +1,6 @@
 import axios from "axios";
-import clone from "clone";
 import { useCallback, useContext, useState } from "react"
-import { UserListContext, UserListContextType } from "../providers/UserListProvider";
+import { UserListContext } from "../providers/UserListProvider";
 import { User } from "../types/api/user";
 import { useMessage } from "./useMessage";
 

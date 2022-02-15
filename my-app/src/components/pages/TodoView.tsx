@@ -1,25 +1,59 @@
 import { memo, useCallback, useEffect, useState, VFC } from "react";
-import { Box, Divider, Flex, Heading, Input, Stack, HStack, Text, Center, Spinner } from '@chakra-ui/react'
-import { MediumBox } from "../atoms/feature/MediumBox";
-import { KanbanBox } from "../atoms/feature/KanbanBox";
-import { useTodo } from "../../hooks/useTodo";
-import { Todo } from "../../types/api/todo";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
+import { HStack, Center, Spinner } from '@chakra-ui/react'
+import { useTodo } from "../../hooks/useTodo";
+import useGroupedItems from "../../hooks/useGroupItems";
+import { MoveHandler } from "../../types/items/DnDItems";
+import { GroupTypes } from "../../types/items/GroupType";
+import { useDnDItemList } from "../../hooks/useDnDItemList";
+import { DnDGroup } from "../atoms/division/DnDGroup";
 
 export const TodoView: VFC = memo(() => {
 
     const { todos, getTodo, loading } = useTodo();
-    const [completeList, setCompleteList] = useState<Array<Todo>>([]);
-    const [uncompleteList, setUncompleteList] = useState<Array<Todo>>([]);
+    const { getDnDItems, dndList } = useDnDItemList();
+    const [groupedItems, dnDItems, setDnDItems] = useGroupedItems(dndList ?? []);
+    const [isUpdate, setIsUpdate] = useState(false);
 
     useEffect(() => {
         getTodo();
     }, [])
 
+    // 元の配列データから {todo: Item[], doing: Item[], done: Item[]} データを準備するhooks
     useEffect(() => {
-        setCompleteList(todos?.filter((entity) => entity.completed && entity.userId === 1) ?? [])
-        setUncompleteList(todos?.filter((entity) => !entity.completed && entity.userId === 1) ?? [])
+        getDnDItems(todos);
+        setIsUpdate(prevState => !prevState);
     }, [todos])
+
+    useEffect(() => {
+        setDnDItems(dndList ?? []);
+    }, [isUpdate])
+
+    const moveItem: MoveHandler = useCallback((dragIndex, targetIndex, group) => {
+        // dragIndexとtargetIndexからswap処理
+
+        const item = dnDItems[dragIndex];
+
+        console.log(dnDItems.map((a) => a));
+        console.log(`${item.id}_${item.title}`)
+
+        // console.log(`dragIndex:${dragIndex}`);
+        // console.log(`targetIndex:${targetIndex}`);
+        // console.log(`group:${group}`);
+        // console.log(`item:${item.id}_${item.title}`);
+
+        if (!item) return;
+        setDnDItems(prevState => {
+            const newItems = prevState.filter((_, idx) => idx !== dragIndex);
+            newItems.splice(targetIndex, 0, { ...item, group });
+            return newItems;
+        })
+    }, [dnDItems, setDnDItems]);
+
+
+    let index = 0;
 
     return (<>
         {loading ? (
@@ -27,39 +61,28 @@ export const TodoView: VFC = memo(() => {
                 <Spinner />
             </Center>
         ) : (
-            <HStack my={4} spacing={1} align={"top"}>
-                <MediumBox
-                    title='ToDo'
-                    element='未実施のタスク'
-                >
-                    <Divider borderColor={"gray.300"} my={2} />
-                    {uncompleteList?.map((uncompleteTodo) => (
-                        <KanbanBox kanbanText={uncompleteTodo.title} />
-                    ))}
-                </MediumBox>
-                <MediumBox
-                    title='InProgress'
-                    element='実施中のタスク'
-                >
-                    <Divider borderColor={"gray.300"} my={2} />
-                </MediumBox>
-                <MediumBox
-                    title='In Review'
-                    element='レビュー中のタスク'
-                >
-                    <Divider borderColor={"gray.300"} my={2} />
-                </MediumBox>
-                <MediumBox
-                    title='Done'
-                    element='完了のタスク'
-                >
-                    <Divider borderColor={"gray.300"} my={2} />
-                    {completeList?.map((completeTodo) => (
-                        <KanbanBox kanbanText={completeTodo.title} />
-                    ))}
+            <DndProvider backend={HTML5Backend}>
+                <HStack my={4} spacing={1} align={"top"} style={{ display: 'table', tableLayout: 'fixed', width: '100%' }}>
+                    {GroupTypes.map(group => {
+                        const items = groupedItems[group];
+                        const firstIndex = index;
+                        if (items === undefined) return null;
+                        index = index + items.length;
 
-                </MediumBox>
-            </HStack>
+                        return (
+                            // <section key={group} className='group-section'>
+                            <DnDGroup
+                                key={group}
+                                items={items}
+                                groupType={group}
+                                firstIndex={firstIndex}
+                                onMove={moveItem}
+                            />
+                            // </section>
+                        )
+                    })}
+                </HStack>
+            </DndProvider>
         )}
     </>)
 })

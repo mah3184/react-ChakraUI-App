@@ -1,4 +1,4 @@
-import { Button, Flex, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spacer, Stack } from "@chakra-ui/react"
+import { FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack } from "@chakra-ui/react"
 import { ChangeEvent, useCallback, useEffect, useState, VFC } from "react"
 import { useUpdateUserList } from "../../../hooks/useAllUsers";
 import { User } from "../../../types/api/user";

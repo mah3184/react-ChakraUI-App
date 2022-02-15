@@ -3,7 +3,6 @@ import { memo, useCallback, VFC } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "../../../hooks/useLogout";
 import { MenuIconButton } from "../../atoms/button/MenuIconButton";
-import { MiniButton } from "../../atoms/button/MiniButton";
 import { LogoutButton } from "../../molecules/LogoutButton";
 import { MenuDrawer } from "../../molecules/MenuDrawer";
 

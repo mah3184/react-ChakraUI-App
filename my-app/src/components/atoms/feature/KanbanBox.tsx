@@ -1,19 +1,20 @@
-import { Box, ListItem, Stack, UnorderedList, Wrap, WrapItem } from '@chakra-ui/react'
-import { memo, VFC } from 'react'
+import { Box, Stack } from '@chakra-ui/react'
+import { VFC } from 'react'
 
 type Prop = {
-    kanbanText : string;
+    id: number;
+    kanbanText: string;
 }
 
-export const KanbanBox: VFC<Prop> = memo((prop) => {
+export const KanbanBox: VFC<Prop> = (prop) => {
 
-    const {kanbanText} = prop;
+    const { id, kanbanText } = prop;
 
     return (
         <Stack>
-            <Box as={"a"} my={2} p={2}  backgroundColor="white" borderRadius={"10px"} border={"10px"} shadow={"md"} _hover={{cursor: "pointer", opacity: 0.8}}>
-                {kanbanText}
+            <Box className="item" as={"a"} my={2} p={2} backgroundColor="white" borderRadius={"10px"} border={"10px"} shadow={"md"} >
+                {id}{":"}{kanbanText}
             </Box>
         </Stack>
     )
-})
+}

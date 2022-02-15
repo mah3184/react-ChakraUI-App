@@ -1,27 +1,30 @@
-import { Box, Divider, Flex, Heading, Input,Stack, HStack, Text } from '@chakra-ui/react'
+import { Box, Heading, Text } from '@chakra-ui/react'
 import { memo, ReactNode, VFC } from 'react';
 
 type Props = {
-    children? : ReactNode
-    title: string
-    element : string
+  children?: ReactNode
+  title: string
+  element: string
+  className: string
 }
 
-export const MediumBox : VFC<Props> = memo((props) => {
-    const {title, element, children} = props;
+export const MediumBox: VFC<Props> = memo((props) => {
+  const { title, element, children, className } = props;
 
-    return (
-        <Box
-        p={4}
-        shadow='md'
-        borderWidth='1px'
-        flex='1'
-        borderRadius='xl'
-      >
-        <Heading fontSize='xl'>{title}</Heading>
-        <Text as="sub" mt={4} >{element}</Text>
-        {children}
-      </Box>
-  
-    )
+  return (
+    <Box
+      p={4}
+      shadow='md'
+      borderWidth='1px'
+      flex='1'
+      borderRadius='xl'
+      style={{ display: 'table-cell' }}
+      className={className}
+    >
+      <Heading fontSize='xl'>{title}</Heading>
+      <Text as="sub" mt={4} >{element}</Text>
+      {children}
+    </Box>
+
+  )
 })
