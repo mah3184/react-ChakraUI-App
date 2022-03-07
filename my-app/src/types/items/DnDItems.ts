@@ -21,3 +21,10 @@ export const TitleMap = {
   InReview: 'InReview',
   Done: 'Done'
 } as const;
+
+export const TitleMapJA = {
+  ToDo: '未実施タスク',
+  InProgress: '進行中タスク',
+  InReview: 'レビュー中タスク',
+  Done: '完了タスク'
+} as const;

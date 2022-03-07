@@ -9,8 +9,11 @@ import { MoveHandler } from "../../types/items/DnDItems";
 import { GroupTypes } from "../../types/items/GroupType";
 import { useDnDItemList } from "../../hooks/useDnDItemList";
 import { DnDGroup } from "../atoms/division/DnDGroup";
+import { useParams } from "react-router-dom";
 
-export const TodoView: VFC = memo(() => {
+export const TodoView: VFC= memo(() => {
+
+    const { userid } = useParams<"userid">();
 
     const { todos, getTodo, loading } = useTodo();
     const { getDnDItems, dndList } = useDnDItemList();
@@ -18,8 +21,8 @@ export const TodoView: VFC = memo(() => {
     const [isUpdate, setIsUpdate] = useState(false);
 
     useEffect(() => {
-        getTodo();
-    }, [])
+        getTodo(userid);
+    }, [userid])
 
     // 元の配列データから {todo: Item[], doing: Item[], done: Item[]} データを準備するhooks
     useEffect(() => {

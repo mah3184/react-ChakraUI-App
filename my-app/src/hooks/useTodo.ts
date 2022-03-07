@@ -13,16 +13,16 @@ export const useTodo = () => {
 
     const getTodo = useCallback((userid?: string, id?: string) => {
         setLoading(true);
-        let serchType: string = "";
+        let searchType: string = "";
         if (userid != null) {
-            serchType = `?userId=${userid}`;
+            searchType = `?userId=${userid}`;
         } else if (id != null) {
-            serchType = `/${id}`;
+            searchType = `/${id}`;
         } else {
-            serchType = "?userId=1";
+            searchType = "";
         }
 
-        axios.get<Array<Todo>>(`https://jsonplaceholder.typicode.com/todos${serchType}`)
+        axios.get<Array<Todo>>(`https://jsonplaceholder.typicode.com/todos${searchType}`)
             .then((res) => {
                 setLoading(false);
                 if (res.data) {

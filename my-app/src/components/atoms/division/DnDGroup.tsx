@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDrop } from 'react-dnd';
 
-import { DnDItems as _Item, DnDItemsWithIndex, TitleMap, ItemTypes, MoveHandler } from '../../../types/items/DnDItems';
+import { DnDItems as _Item, DnDItemsWithIndex, TitleMap, ItemTypes, MoveHandler, TitleMapJA } from '../../../types/items/DnDItems';
 import { GroupType } from '../../../types/items/GroupType';
 
 import Draggable from './Draggable';
@@ -36,8 +36,9 @@ export const DnDGroup: React.FC<{
   return (
     <MediumBox
       title={TitleMap[groupType]}
-      element='未実施のタスク'
+      element={TitleMapJA[groupType]}
       className={['group', groupType].join(' ')}
+      listSize={items.length}
     >
       <Divider borderColor={"gray.300"} my={2} />
       <ul className='list' ref={ref} style={{ listStyle: `none` }}>
