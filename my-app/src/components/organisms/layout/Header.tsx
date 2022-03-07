@@ -20,7 +20,7 @@ export const Header: VFC = memo(() => {
 
     return (
         <>
-            <Flex as="nav" bg="teal.500" color="gray.50" align="cdenter" justify="space-between" padding={{ base: 3, md: 5 }}>
+            <Flex as="nav" bg="teal.400" color="gray.50" align="center" justify="space-between" padding={{ base: 3, md: 5 }}>
                 <Flex align="center" as="a" mr={8} _hover={{ cursor: "pointer" }} onClick={onClickHome}>
                     <Heading as="h1" fontSize={{ base: "md", md: "lg" }}>ユーザー管理アプリ</Heading>
                 </Flex>
@@ -41,8 +41,8 @@ export const Header: VFC = memo(() => {
                     display={{ base: "none", md: "flex" }}
                 />
                 <Flex mr={20} align="center">
-                <LogoutButton />
-                <MenuIconButton onOpen={onOpen} />
+                    <LogoutButton />
+                    <MenuIconButton onOpen={onOpen} />
                 </Flex>
             </Flex>
             <MenuDrawer

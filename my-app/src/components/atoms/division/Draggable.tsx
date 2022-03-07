@@ -45,10 +45,6 @@ const Draggable: React.VFC<Props> = ({
       }
 
       // 内部のデータも変更しつつ、onMoveでstate変更を依頼する
-      console.log("====")
-      console.log(`Draggable>dragIndex:${dragIndex}_hoverIndex:${hoverIndex}`);
-      console.log(`dndItem>${dndItem.id}_${dndItem.group}_${dndItem.title}`);
-      console.log(`dragItem>${dragItem.id}_${dragItem.group}_${dragItem.title}`);
 
       onMove(dragIndex, hoverIndex, dndItem.group);
       dragItem.index = hoverIndex;

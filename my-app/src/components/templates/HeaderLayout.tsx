@@ -3,7 +3,7 @@ import { Header } from "../organisms/layout/Header";
 import { Redirector } from "../organisms/layout/Redirector";
 
 type Props = {
-    children: ReactNode;
+    children?: ReactNode;
 }
 
 export const HeaderLayout: VFC<Props> = memo((props) => {
@@ -11,7 +11,7 @@ export const HeaderLayout: VFC<Props> = memo((props) => {
 
     return (
         <>
-        <Redirector />
+            <Redirector />
             <Header />
             {children}
         </>

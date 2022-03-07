@@ -15,8 +15,9 @@ export const Router: VFC = memo(() => {
         <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="home" element={<Home />}>
-                    <Route path="todo" element={<TodoView />} />
                     <Route path="user_management" element={<UserManagement />} />
+                    <Route path="todo" element={<TodoView />} />
+                    <Route path="todo/:userid" element={<TodoView />} />
                 </Route>
                 <Route path="*" element={<Page404 />} />
         </Routes>
